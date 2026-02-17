@@ -5,7 +5,6 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-/* ── body centraliza, mas permite scroll ─────────── */
 html {
     height: 100%;
 }
@@ -14,27 +13,20 @@ body {
     min-height: 100%;
     background: linear-gradient(#fff6e5, #f6edd7);
     background-attachment: fixed;
-
     display: flex;
     justify-content: center;
     align-items: center;
-    /* centraliza quando o conteúdo cabe na tela */
-
     color: #2f2f2f;
     overflow-y: auto;
-    /* scroll quando o conteúdo for maior que a tela */
 }
 
-/* ── CONTAINER ───────────────────────────────────── */
 .container {
     width: 100%;
     max-width: 400px;
     padding: 40px 20px;
-    /* padding vertical garante respiro no topo/base */
     text-align: center;
 }
 
-/* ── LOGO ─────────────────────────────────────────── */
 .logo {
     display: flex;
     justify-content: center;
@@ -47,7 +39,6 @@ body {
 .logo h1 {
     font-size: 28px;
     white-space: nowrap;
-    /* impede quebra de linha no nome */
 }
 
 .book-icon {
@@ -57,13 +48,11 @@ body {
     flex-shrink: 0;
 }
 
-/* ── SUBTITLE ─────────────────────────────────────── */
 .subtitle {
     color: #6f6f6f;
     margin-bottom: 20px;
 }
 
-/* ── CARD ─────────────────────────────────────────── */
 .card {
     background: #fff3d9;
     border-radius: 14px;
@@ -81,7 +70,6 @@ body {
     margin-bottom: 20px;
 }
 
-/* ── FORM ─────────────────────────────────────────── */
 form {
     text-align: left;
 }
@@ -107,7 +95,6 @@ input:focus {
     border-color: #3b2b24;
 }
 
-/* ── ROW ──────────────────────────────────────────── */
 .row {
     display: flex;
     gap: 12px;
@@ -116,10 +103,8 @@ input:focus {
 .row div {
     flex: 1;
     min-width: 0;
-    /* evita overflow em telas pequenas */
 }
 
-/* ── TERMOS ───────────────────────────────────────── */
 .terms-check {
     display: flex;
     gap: 8px;
@@ -137,7 +122,6 @@ input:focus {
     text-decoration: underline;
 }
 
-/* ── BOTÃO ────────────────────────────────────────── */
 .btn-primary {
     width: 100%;
     padding: 12px;
@@ -159,7 +143,6 @@ input:focus {
     transform: translateY(0);
 }
 
-/* ── DIVISOR ──────────────────────────────────────── */
 .divider {
     margin: 20px 0;
     font-size: 12px;
@@ -172,7 +155,6 @@ input:focus {
     padding: 0 10px;
 }
 
-/* ── LINK ─────────────────────────────────────────── */
 .register {
     margin-top: 16px;
     font-size: 14px;
@@ -189,7 +171,6 @@ input:focus {
     text-decoration: underline;
 }
 
-/* ── RESPONSIVO ───────────────────────────────────── */
 @media (max-width: 480px) {
     .container {
         padding: 32px 16px;
