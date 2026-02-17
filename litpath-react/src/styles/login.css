@@ -1,0 +1,397 @@
+/* ── RESET ─────────────────────────────────────── */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ── TOKENS ─────────────────────────────────────── */
+:root {
+    --brown-dark: #3b2b24;
+    --brown-mid: #6b4b3e;
+    --brown-light: #a07860;
+    --cream: #fff8ee;
+    --cream-card: #fff3d9;
+    --cream-input: #fffdf7;
+    --border: #e0ceaa;
+    --border-focus: #3b2b24;
+    --text: #2f2f2f;
+    --text-muted: #7a6a5a;
+    --text-subtle: #b0a090;
+    --shadow: rgba(59, 43, 36, 0.10);
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 20px;
+}
+
+/* ── BASE ────────────────────────────────────────── */
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    font-family: 'Lato', sans-serif;
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+
+    /* centraliza e permite scroll quando o conteúdo for maior que a tela */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        radial-gradient(ellipse at 20% 0%, rgba(180, 130, 90, 0.13) 0%, transparent 55%),
+        radial-gradient(ellipse at 80% 100%, rgba(180, 130, 90, 0.10) 0%, transparent 55%),
+        linear-gradient(160deg, #fff6e5 0%, #f6edd7 60%, #eedfc4 100%);
+    background-attachment: fixed;
+}
+
+/* textura sutil de papel */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ── CONTAINER ───────────────────────────────────── */
+.container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 480px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 52px 20px 60px;
+    text-align: center;
+}
+
+/* ── LOGO ─────────────────────────────────────────── */
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    flex-shrink: 0;
+    animation: fadeDown 0.5s ease both;
+}
+
+.book-icon {
+    width: 30px;
+    height: 30px;
+    color: var(--brown-dark);
+    flex-shrink: 0;
+}
+
+.logo h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--brown-dark);
+    letter-spacing: -0.3px;
+    white-space: nowrap;
+}
+
+/* ── SUBTITLE ─────────────────────────────────────── */
+.subtitle {
+    font-size: 14px;
+    color: var(--text-muted);
+    letter-spacing: 0.2px;
+    margin-bottom: 28px;
+    animation: fadeDown 0.5s 0.1s ease both;
+}
+
+/* ── CARD ─────────────────────────────────────────── */
+.card {
+    width: 100%;
+    max-width: 420px;
+    background: var(--cream-card);
+    border: 1px solid rgba(180, 140, 90, 0.25);
+    border-radius: var(--radius-lg);
+    padding: 36px 32px;
+    box-shadow:
+        0 2px 0 rgba(255, 255, 255, 0.8) inset,
+        0 12px 40px var(--shadow),
+        0 2px 8px rgba(59, 43, 36, 0.06);
+    animation: fadeUp 0.55s 0.15s ease both;
+}
+
+/* ── CARD TÍTULO ──────────────────────────────────── */
+.card h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--brown-dark);
+    text-align: center;
+    margin-bottom: 6px;
+}
+
+.card-subtitle {
+    text-align: center;
+    font-size: 13.5px;
+    color: var(--text-muted);
+    margin-bottom: 26px;
+    line-height: 1.5;
+}
+
+/* divisor decorativo */
+.card h2+.card-subtitle::before {
+    content: '';
+    display: block;
+    width: 36px;
+    height: 2px;
+    background: var(--brown-mid);
+    margin: 10px auto 14px;
+    border-radius: 2px;
+    opacity: 0.5;
+}
+
+/* ── FORM ─────────────────────────────────────────── */
+form {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ── LABEL ────────────────────────────────────────── */
+label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+}
+
+/* ── INPUT ────────────────────────────────────────── */
+input {
+    width: 100%;
+    padding: 11px 13px;
+    background: var(--cream-input);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    font-family: 'Lato', sans-serif;
+    font-size: 14px;
+    margin-bottom: 16px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+}
+
+input::placeholder {
+    color: var(--text-subtle);
+}
+
+input:focus {
+    border-color: var(--border-focus);
+    box-shadow: 0 0 0 3px rgba(59, 43, 36, 0.08);
+}
+
+/* ── ROW (dois inputs lado a lado) ───────────────── */
+.row {
+    display: flex;
+    gap: 12px;
+}
+
+.row>div {
+    flex: 1;
+    min-width: 0;
+    /* evita overflow em telas pequenas */
+}
+
+/* ── TERMOS ───────────────────────────────────────── */
+.terms-check {
+    display: flex;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: 4px 0 20px;
+    align-items: flex-start;
+    line-height: 1.5;
+}
+
+.terms-check input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    margin: 2px 0 0;
+    flex-shrink: 0;
+    accent-color: var(--brown-dark);
+    cursor: pointer;
+}
+
+.terms-check a {
+    color: var(--brown-mid);
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.2s;
+}
+
+.terms-check a:hover {
+    color: var(--brown-dark);
+    text-decoration: underline;
+}
+
+/* ── ESQUECEU A SENHA ─────────────────────────────── */
+.options {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: -8px;
+    margin-bottom: 20px;
+}
+
+.forgot {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.forgot:hover {
+    color: var(--brown-dark);
+    text-decoration: underline;
+}
+
+/* ── BOTÃO ────────────────────────────────────────── */
+.btn-primary {
+    width: 100%;
+    padding: 13px;
+    background: var(--brown-dark);
+    border: none;
+    border-radius: var(--radius-sm);
+    color: #fff;
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    transition: background 0.25s, transform 0.15s, box-shadow 0.25s;
+    box-shadow: 0 4px 18px rgba(59, 43, 36, 0.22);
+}
+
+.btn-primary:hover {
+    background: #2e211b;
+    box-shadow: 0 6px 24px rgba(59, 43, 36, 0.30);
+    transform: translateY(-1px);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(59, 43, 36, 0.18);
+}
+
+/* ── DIVISOR ──────────────────────────────────────── */
+.divider {
+    position: relative;
+    margin: 22px 0;
+    font-size: 12px;
+    color: var(--text-subtle);
+    text-align: center;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 38%;
+    height: 1px;
+    background: var(--border);
+}
+
+.divider::before {
+    left: 0;
+}
+
+.divider::after {
+    right: 0;
+}
+
+.divider span {
+    background: var(--cream-card);
+    padding: 0 10px;
+    position: relative;
+    z-index: 1;
+}
+
+/* ── LINK CADASTRO / LOGIN ────────────────────────── */
+.register {
+    margin-top: 20px;
+    font-size: 13.5px;
+    text-align: center;
+    color: var(--text-muted);
+}
+
+.register a {
+    color: var(--brown-mid);
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.2s;
+}
+
+.register a:hover {
+    color: var(--brown-dark);
+    text-decoration: underline;
+}
+
+/* ── ANIMAÇÕES ────────────────────────────────────── */
+@keyframes fadeDown {
+    from {
+        opacity: 0;
+        transform: translateY(-16px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ── RESPONSIVO ───────────────────────────────────── */
+@media (max-width: 480px) {
+    .container {
+        padding: 36px 16px 48px;
+    }
+
+    .logo h1 {
+        font-size: 24px;
+    }
+
+    .card {
+        padding: 28px 20px;
+    }
+
+    .card h2 {
+        font-size: 21px;
+    }
+
+    .row {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .btn-primary {
+        font-size: 14px;
+    }
+}
