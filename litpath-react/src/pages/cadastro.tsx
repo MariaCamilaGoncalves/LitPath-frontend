@@ -1,10 +1,12 @@
 import "../styles/cadastro.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { createUser } from "../api";
 import type { User } from "../api";
 
 export default function Cadastro() {
+    const navigate = useNavigate();
+
     // Estados para inputs do formulário
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -35,13 +37,7 @@ export default function Cadastro() {
             setLoading(true);
             await createUser(user);
             alert("Usuário criado com sucesso!");
-            // Limpar campos após sucesso
-            setFirstName("");
-            setLastName("");
-            setEmail("");
-            setUsername("");
-            setPassword("");
-            setConfirmPassword("");
+            navigate("/");
         } catch (err) {
             const errorMessage = err instanceof Error ? err.message : "Erro ao criar usuário";
             alert(errorMessage);
