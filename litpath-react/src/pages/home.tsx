@@ -1,4 +1,8 @@
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/home.css";
+import { translateGenre } from "../utils/genreTranslations";
+
 
 const SearchIcon = () => (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -7,11 +11,6 @@ const SearchIcon = () => (
     </svg>
 );
 
-const StarIcon = () => (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-    </svg>
-);
 
 const BookIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"
@@ -21,94 +20,141 @@ const BookIcon = () => (
     </svg>
 );
 
+
 const UserCircleIcon = () => (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <circle cx="12" cy="12" r="10" />
         <circle cx="12" cy="10" r="3" />
         <path d="M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662" />
     </svg>
 );
 
-interface Author {
-    id: string;
+
+interface GenreDTO {
+    id: number;
     name: string;
-    image: string;
-    description: string;
-    booksCount: number;
-    rating: number;
 }
 
-interface Book {
-    id: string;
+
+interface BookDTO {
+    id: number;
     title: string;
-    author: string;
-    cover: string;
-    genre: string;
-    year: number;
-    rating: number;
+    synopsis: string;
+    publicationYear: number;
+    coverUrl: string;
+    authorName: string;
+    genres: GenreDTO[];
 }
+
+
+interface AuthorDTO {
+    id: number;
+    name: string;
+    biography: string;
+    nationality: string;
+    birthDate: string;
+    photoUrl: string;
+    genres: GenreDTO[];
+    books: BookDTO[];
+}
+
+
+const API_URL = "http://localhost:8080";
+
+
+const authFetch = (url: string) => {
+    const token = localStorage.getItem("token");
+    return fetch(url, {
+        headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json",
+        },
+    });
+};
+
+
+const shuffle = <T,>(arr: T[]): T[] => [...arr].sort(() => Math.random() - 0.5);
+
 
 export default function Home() {
-    const featuredAuthors: Author[] = [
-        {
-            id: "1",
-            name: "Machado de Assis",
-            image: "/authors/machado.jpg",
-            description: "Escritor brasileiro, considerado um dos maiores nomes da literatura nacional.",
-            booksCount: 15,
-            rating: 4.8,
-        },
-        {
-            id: "2",
-            name: "Clarice Lispector",
-            image: "/authors/clarice.jpg",
-            description: "Escritora brasileira nascida na Ucrânia, uma das principais representantes da literatura brasileira.",
-            booksCount: 12,
-            rating: 4.9,
-        },
-        {
-            id: "3",
-            name: "Jorge Amado",
-            image: "/authors/jorge.jpg",
-            description: "Escritor brasileiro, um dos autores mais adaptados para cinema, teatro e televisão.",
-            booksCount: 23,
-            rating: 4.7,
-        },
-    ];
+    const navigate = useNavigate();
 
-    const popularBooks: Book[] = [
-        {
-            id: "1",
-            title: "Dom Casmurro",
-            author: "Machado de Assis",
-            cover: "/books/dom-casmurro.jpg",
-            genre: "Romance",
-            year: 1899,
-            rating: 4.6,
-        },
-        {
-            id: "2",
-            title: "A Hora da Estrela",
-            author: "Clarice Lispector",
-            cover: "/books/hora-estrela.jpg",
-            genre: "Romance",
-            year: 1977,
-            rating: 4.8,
-        },
-        {
-            id: "3",
-            title: "Gabriela, Cravo e Canela",
-            author: "Jorge Amado",
-            cover: "/books/gabriela.jpg",
-            genre: "Romance",
-            year: 1958,
-            rating: 4.5,
-        },
-    ];
+
+    const [authors, setAuthors] = useState<AuthorDTO[]>([]);
+    const [books, setBooks] = useState<BookDTO[]>([]);
+    const [allAuthors, setAllAuthors] = useState<AuthorDTO[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [searchTerm, setSearchTerm] = useState("");
+
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+
+
+        if (!token) {
+            navigate("/");
+            return;
+        }
+
+
+        const fetchData = async () => {
+            try {
+                const [authorsRes, booksRes] = await Promise.all([
+                    authFetch(`${API_URL}/authors`),
+                    authFetch(`${API_URL}/books`)
+                ]);
+
+
+                if (authorsRes.status === 401 || authorsRes.status === 403) {
+                    localStorage.removeItem("token");
+                    navigate("/");
+                    return;
+                }
+
+
+                const authorsData: AuthorDTO[] = await authorsRes.json();
+                const booksData: BookDTO[] = await booksRes.json();
+
+
+                setAllAuthors(authorsData);
+
+
+                // 6 autores aleatórios
+                setAuthors(shuffle(authorsData).slice(0, 6));
+
+
+                // 12 livros aleatórios com capa (2 linhas de 6)
+                const booksWithCover = booksData.filter(b => b.coverUrl);
+                setBooks(shuffle(booksWithCover).slice(0, 12));
+
+
+            } catch (error) {
+                console.error("Erro ao buscar dados da API:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+
+        fetchData();
+    }, [navigate]);
+
+
+    const handleSearch = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter" && searchTerm.trim()) {
+            try {
+                const res = await authFetch(`${API_URL}/books/search?title=${searchTerm}`);
+                const data: BookDTO[] = await res.json();
+                setBooks(data.filter(b => b.coverUrl).slice(0, 12));
+            } catch (error) {
+                console.error("Erro na busca:", error);
+            }
+        }
+    };
+
 
     return (
         <div className="litpath-home">
-            {/* Header */}
             <header className="litpath-header">
                 <div className="header-container">
                     <div className="logo">
@@ -120,105 +166,157 @@ export default function Home() {
                         <span>LitPath</span>
                     </div>
 
+
                     <div className="search-bar">
                         <SearchIcon />
-                        <input type="text" placeholder="Pesquisar autores, livros..." />
+                        <input
+                            type="text"
+                            placeholder="Pesquisar livros... (Enter para buscar)"
+                            value={searchTerm}
+                            onChange={e => setSearchTerm(e.target.value)}
+                            onKeyDown={handleSearch}
+                        />
                     </div>
+
 
                     <nav className="header-nav">
                         <a href="/autores" className="nav-link">Autores</a>
                         <a href="/livros" className="nav-link">Livros</a>
                         <a href="/perfil" className="nav-link">
-                            <UserCircleIcon />
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                <circle cx="12" cy="12" r="10" />
+                                <circle cx="12" cy="10" r="3" />
+                                <path d="M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662" />
+                            </svg>
                             <span>Perfil</span>
                         </a>
                     </nav>
                 </div>
             </header>
 
-            {/* Main Content */}
+
             <main className="litpath-main">
-                {/* Hero Section */}
                 <section className="hero-section">
                     <h1 className="hero-title">
                         Descubra o mundo da <span className="highlight">literatura</span>
                     </h1>
                     <p className="hero-subtitle">
-                        Explore autores, descubra novos livros e conecte-se com uma comunidade apaixonada por literatura
+                        Explore autores, descubra obras e mergulhe no universo da literatura.
                     </p>
                     <div className="hero-buttons">
-                        <button className="btn-hero-primary">Explorar Autores</button>
-                        <button className="btn-hero-secondary">Ver Livros</button>
+                        <button className="btn-hero-primary" onClick={() => navigate("/autores")}>Explorar Autores</button>
+                        <button className="btn-hero-secondary" onClick={() => navigate("/livros")}>Ver Livros</button>
                     </div>
                 </section>
 
-                {/* Featured Authors Section */}
+
+                {/* Featured Authors */}
                 <section className="section featured-authors">
                     <div className="section-header">
                         <h2>Autores em Destaque</h2>
-                        <p className="section-subtitle">Conheça os grandes nomes da literatura</p>
+                        <p className="section-subtitle">Cada autor carrega um universo. Descubra o deles.</p>
                     </div>
 
-                    <div className="authors-grid">
-                        {featuredAuthors.map((author) => (
-                            <div key={author.id} className="author-card">
-                                <div className="author-image">
-                                    <div className="image-placeholder">
-                                        <UserCircleIcon />
+
+                    {loading ? (
+                        <p className="loading-text">Carregando autores...</p>
+                    ) : (
+                        <div className="authors-grid">
+                            {authors.map((author) => (
+                                <div
+                                    key={author.id}
+                                    className="author-card"
+                                    onClick={() => navigate(`/autores/${author.id}`)}
+                                >
+                                    <div className="author-image">
+                                        {author.photoUrl ? (
+                                            <img
+                                                src={author.photoUrl}
+                                                alt={author.name}
+                                                onError={e => {
+                                                    (e.target as HTMLImageElement).style.display = "none";
+                                                }}
+                                            />
+                                        ) : (
+                                            <div className="image-placeholder">
+                                                <UserCircleIcon />
+                                            </div>
+                                        )}
                                     </div>
-                                </div>
-                                <div className="author-info">
-                                    <h3>{author.name}</h3>
-                                    <p className="author-description">{author.description}</p>
-                                    <div className="author-stats">
-                                        <span className="book-count">{author.booksCount} livros</span>
-                                        <div className="rating">
-                                            <StarIcon />
-                                            <span>{author.rating}</span>
+                                    <div className="author-info">
+                                        <h3>{author.name}</h3>
+                                        <p className="author-description">
+                                            {author.biography
+                                                ? author.biography.slice(0, 100) + "..."
+                                                : author.nationality || "Autor sem descrição"}
+                                        </p>
+                                        <div className="author-stats">
+                                            <span className="book-count">
+                                                {author.books?.length ?? 0} livros
+                                            </span>
+                                            {author.genres?.length > 0 && (
+                                                <span className="author-genre">
+                                                    {translateGenre(author.genres[0].name)}
+                                                </span>
+                                            )}
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        ))}
-                    </div>
+                            ))}
+                        </div>
+                    )}
                 </section>
 
-                {/* Popular Books Section */}
+
+                {/* Popular Books */}
                 <section className="section popular-books">
                     <div className="section-header">
                         <h2>Livros Populares</h2>
-                        <p className="section-subtitle">Os livros mais lidos e bem avaliados</p>
+                        <p className="section-subtitle">Sua próxima leitura favorita está aqui!</p>
                     </div>
 
-                    <div className="books-grid">
-                        {popularBooks.map((book) => (
-                            <div key={book.id} className="book-card">
-                                <div className="book-cover">
-                                    <div className="cover-placeholder">
-                                        <BookIcon />
+
+                    {loading ? (
+                        <p className="loading-text">Carregando livros...</p>
+                    ) : (
+                        <div className="books-grid">
+                            {books.map((book) => (
+                                <div key={book.id} className="book-card">
+                                    <div className="book-cover">
+                                        {book.coverUrl ? (
+                                            <img
+                                                src={book.coverUrl}
+                                                alt={book.title}
+                                                onError={e => {
+                                                    (e.target as HTMLImageElement).style.display = "none";
+                                                }}
+                                            />
+                                        ) : (
+                                            <div className="cover-placeholder">
+                                                <BookIcon />
+                                            </div>
+                                        )}
                                     </div>
-                                </div>
-                                <div className="book-info">
-                                    <h3>{book.title}</h3>
-                                    <p className="book-author">por {book.author}</p>
-                                    <div className="book-meta">
-                                        <span className="book-genre">{book.genre}</span>
-                                        <span className="book-year">{book.year}</span>
-                                    </div>
-                                    <div className="book-footer">
-                                        <div className="rating">
-                                            <StarIcon />
-                                            <span>{book.rating}</span>
+                                    <div className="book-info">
+                                        <h3>{book.title}</h3>
+                                        <p className="book-author">por {book.authorName}</p>
+                                        <div className="book-footer">
+                                            <button
+                                                className="btn-details"
+                                                onClick={() => navigate(`/livros/${book.id}`)}
+                                            >
+                                                Ver Detalhes
+                                            </button>
                                         </div>
-                                        <button className="btn-details">Ver Detalhes</button>
                                     </div>
                                 </div>
-                            </div>
-                        ))}
-                    </div>
+                            ))}
+                        </div>
+                    )}
                 </section>
 
-                {/* CTA Section */}
+
+                {/* CTA */}
                 <section className="cta-section">
                     <h2>Cada livro é uma viagem.</h2>
                     <p>
