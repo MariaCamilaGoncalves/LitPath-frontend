@@ -39,7 +39,6 @@ body {
     overflow-x: hidden;
 }
 
-/* ── Header ── */
 .litpath-header {
     background: var(--cream-card);
     border-bottom: 1px solid var(--border);
@@ -92,7 +91,6 @@ body {
     font-weight: 700;
 }
 
-/* ── Main ── */
 .authors-page {
     min-height: 100vh;
 }
@@ -103,7 +101,6 @@ body {
     padding: 48px 40px 80px;
 }
 
-/* ── Hero ── */
 .authors-hero {
     text-align: center;
     margin-bottom: 40px;
@@ -123,7 +120,6 @@ body {
     line-height: 1.7;
 }
 
-/* ── Controls ── */
 .authors-controls {
     margin-bottom: 20px;
 }
@@ -213,7 +209,6 @@ body {
     color: #fff;
 }
 
-/* ── Authors Grid ── */
 .authors-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -221,7 +216,6 @@ body {
     margin-bottom: 40px;
 }
 
-/* ── Author Card ── */
 .author-card {
     background: var(--cream-card);
     border: 1px solid var(--border);
@@ -241,7 +235,6 @@ body {
 .author-card-cover {
     position: relative;
     width: 100%;
-    /* ALTERADO: proporção 3/4 para mostrar o rosto completo sem cortar */
     aspect-ratio: 3 / 4;
     overflow: hidden;
     background: #ccc;
@@ -251,7 +244,6 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* ALTERADO: centraliza no rosto, não corta o topo */
     object-position: center 20%;
     display: block;
     transition: transform 0.4s ease;
@@ -391,7 +383,6 @@ body {
     transform: translateY(0);
 }
 
-/* ── Load More ── */
 .load-more-wrap {
     display: flex;
     justify-content: center;
@@ -416,7 +407,6 @@ body {
     transform: translateY(-1px);
 }
 
-/* ── Empty State ── */
 .empty-state {
     text-align: center;
     padding: 80px 0;
@@ -424,7 +414,6 @@ body {
     font-size: 16px;
 }
 
-/* ── Responsive ── */
 @media (max-width: 1024px) {
     .authors-grid {
         grid-template-columns: repeat(2, 1fr);

@@ -6,8 +6,11 @@ import AuthorPage from "./pages/author";
 import AuthorsPage from "./pages/authorsPage";
 import BooksPage from "./pages/booksPage";
 import BookPage from "./pages/book";
+import PreferencesPage from "./pages/preferencesPage";
+import ProfilePage from "./pages/profilePage";
+import UserProfilePage from "./pages/userProfilePage";
+import SearchPage from "./pages/searchPage";
 import PrivateRoute from "./components/privateRoute";
-
 
 function App() {
   return (
@@ -15,10 +18,34 @@ function App() {
       <Route path="/" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route
+        path="/preferences"
+        element={
+          <PrivateRoute>
+            <PreferencesPage />
+          </PrivateRoute>
+        }
+      />
+      <Route
         path="/home"
         element={
           <PrivateRoute>
             <Home />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/perfil"
+        element={
+          <PrivateRoute>
+            <ProfilePage />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/usuarios/:id"
+        element={
+          <PrivateRoute>
+            <UserProfilePage />
           </PrivateRoute>
         }
       />
@@ -54,11 +81,16 @@ function App() {
           </PrivateRoute>
         }
       />
+      <Route
+        path="/pesquisa"
+        element={
+          <PrivateRoute>
+            <SearchPage />
+          </PrivateRoute>
+        }
+      />
     </Routes>
   );
 }
 
-
 export default App;
-
-

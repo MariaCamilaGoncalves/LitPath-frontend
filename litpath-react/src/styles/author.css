@@ -17,9 +17,6 @@
     --radius-lg: 14px;
 }
 
-
-
-
 *,
 *::before,
 *::after {
@@ -28,15 +25,9 @@
     box-sizing: border-box;
 }
 
-
-
-
 html {
     height: 100%;
 }
-
-
-
 
 body {
     min-height: 100%;
@@ -48,10 +39,6 @@ body {
     overflow-x: hidden;
 }
 
-
-
-
-/* ── Header ── */
 .litpath-header {
     background: var(--cream-card);
     border-bottom: 1px solid var(--border);
@@ -62,17 +49,11 @@ body {
     box-shadow: 0 2px 8px rgba(59, 43, 36, 0.05);
 }
 
-
-
-
 .header-container {
     display: flex;
     align-items: center;
     gap: 32px;
 }
-
-
-
 
 .logo {
     display: flex;
@@ -86,18 +67,12 @@ body {
     flex-shrink: 0;
 }
 
-
-
-
 .search-bar {
     flex: 1;
     max-width: 500px;
     position: relative;
     height: 40px;
 }
-
-
-
 
 .search-bar svg {
     position: absolute;
@@ -107,9 +82,6 @@ body {
     color: var(--text-muted);
     pointer-events: none;
 }
-
-
-
 
 .search-bar input {
     position: absolute;
@@ -127,23 +99,14 @@ body {
     transition: border-color 0.2s;
 }
 
-
-
-
 .search-bar input::placeholder {
     color: var(--text-subtle);
 }
-
-
-
 
 .search-bar input:focus {
     border-color: var(--brown-dark);
     box-shadow: 0 0 0 3px rgba(59, 43, 36, 0.08);
 }
-
-
-
 
 .header-nav {
     display: flex;
@@ -151,9 +114,6 @@ body {
     gap: 24px;
     margin-left: auto;
 }
-
-
-
 
 .nav-link {
     display: flex;
@@ -166,32 +126,19 @@ body {
     transition: color 0.2s;
 }
 
-
-
-
 .nav-link:hover {
     color: var(--brown-mid);
 }
 
-
-
-
-/* ── Main ── */
 .author-page {
     min-height: 100vh;
 }
-
-
-
 
 .author-main {
     max-width: 1100px;
     margin: 0 auto;
     padding: 40px 40px 80px;
 }
-
-
-
 
 .loading-state,
 .empty-state {
@@ -201,25 +148,15 @@ body {
     font-size: 16px;
 }
 
-
-
-
-/* ── Hero ── */
 .author-hero {
     margin-bottom: 40px;
 }
-
-
-
 
 .author-hero-inner {
     display: flex;
     gap: 48px;
     align-items: flex-start;
 }
-
-
-
 
 .author-photo-wrap {
     flex-shrink: 0;
@@ -231,17 +168,11 @@ body {
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
-
-
-
 .author-photo-wrap img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
-
-
-
 
 .author-photo-placeholder {
     width: 100%;
@@ -252,25 +183,16 @@ body {
     background: linear-gradient(135deg, #f5e6d3 0%, #e8d4ba 100%);
 }
 
-
-
-
 .author-photo-placeholder svg {
     width: 80px;
     height: 80px;
     color: var(--text-subtle);
 }
 
-
-
-
 .author-hero-info {
     flex: 1;
     padding-top: 12px;
 }
-
-
-
 
 .author-name {
     font-family: 'Playfair Display', serif;
@@ -281,17 +203,11 @@ body {
     line-height: 1.15;
 }
 
-
-
-
 .author-fullname {
     font-size: 16px;
     color: var(--text-muted);
     margin-bottom: 20px;
 }
-
-
-
 
 .author-genres {
     display: flex;
@@ -299,9 +215,6 @@ body {
     gap: 8px;
     margin-bottom: 32px;
 }
-
-
-
 
 .genre-tag {
     padding: 5px 14px;
@@ -312,17 +225,11 @@ body {
     font-weight: 500;
 }
 
-
-
-
 .author-actions {
     display: flex;
     gap: 12px;
     flex-wrap: wrap;
 }
-
-
-
 
 .btn-action {
     display: flex;
@@ -340,33 +247,20 @@ body {
     transition: border-color 0.2s, transform 0.15s;
 }
 
-
-
-
 .btn-action:hover {
     border-color: var(--brown-mid);
     transform: translateY(-1px);
 }
 
-
-
-
 .btn-action:active {
     transform: translateY(0);
 }
-
-
-
 
 .btn-action.favorited {
     border-color: var(--star-gold);
     color: var(--star-gold);
 }
 
-
-
-
-/* ── Tabs ── */
 .tabs-bar {
     display: flex;
     border: 1px solid var(--border);
@@ -375,9 +269,6 @@ body {
     margin-bottom: 32px;
     background: var(--cream-bg);
 }
-
-
-
 
 .tab-btn {
     flex: 1;
@@ -391,22 +282,13 @@ body {
     transition: background 0.2s, color 0.2s;
 }
 
-
-
-
 .tab-btn:not(:last-child) {
     border-right: 1px solid var(--border);
 }
 
-
-
-
 .tab-btn:hover {
     background: rgba(59, 43, 36, 0.05);
 }
-
-
-
 
 .tab-btn.active {
     background: var(--cream-card);
@@ -414,18 +296,10 @@ body {
     font-weight: 700;
 }
 
-
-
-
-/* ── Tab Content ── */
 .tab-content {
     animation: fadeUp 0.25s ease both;
 }
 
-
-
-
-/* Biografia */
 .bio-card {
     background: var(--cream-card);
     border: 1px solid var(--border);
@@ -433,9 +307,6 @@ body {
     padding: 28px 32px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
-
-
-
 
 .bio-card h3 {
     font-family: 'Playfair Display', serif;
@@ -445,27 +316,17 @@ body {
     margin-bottom: 16px;
 }
 
-
-
-
 .bio-card p {
     font-size: 15px;
     color: var(--text-muted);
     line-height: 1.8;
 }
 
-
-
-
-/* Livros */
 .books-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
     gap: 20px;
 }
-
-
-
 
 .book-card {
     background: var(--cream-card);
@@ -477,16 +338,10 @@ body {
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
-
-
-
 .book-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 8px 24px rgba(59, 43, 36, 0.12);
 }
-
-
-
 
 .book-cover {
     width: 100%;
@@ -494,17 +349,11 @@ body {
     background: var(--cream-bg);
 }
 
-
-
-
 .book-cover img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
-
-
-
 
 .cover-placeholder {
     width: 100%;
@@ -515,24 +364,15 @@ body {
     background: linear-gradient(135deg, #e8d4ba 0%, #d4bfa5 100%);
 }
 
-
-
-
 .cover-placeholder svg {
     width: 40px;
     height: 40px;
     color: var(--text-subtle);
 }
 
-
-
-
 .book-card-info {
     padding: 10px 12px;
 }
-
-
-
 
 .book-card-title {
     font-family: 'Playfair Display', serif;
@@ -543,26 +383,16 @@ body {
     line-height: 1.3;
 }
 
-
-
-
 .book-card-year {
     font-size: 12px;
     color: var(--text-subtle);
 }
 
-
-
-
-/* Detalhes */
 .details-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 24px;
 }
-
-
-
 
 .details-card {
     background: var(--cream-card);
@@ -572,9 +402,6 @@ body {
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
-
-
-
 .details-card h3 {
     font-family: 'Playfair Display', serif;
     font-size: 18px;
@@ -583,9 +410,6 @@ body {
     margin-bottom: 20px;
 }
 
-
-
-
 .details-list {
     list-style: none;
     display: flex;
@@ -593,26 +417,17 @@ body {
     gap: 18px;
 }
 
-
-
-
 .details-list li {
     display: flex;
     align-items: flex-start;
     gap: 12px;
 }
 
-
-
-
 .details-list li svg {
     flex-shrink: 0;
     margin-top: 2px;
     color: var(--text-muted);
 }
-
-
-
 
 .detail-label {
     display: block;
@@ -624,27 +439,17 @@ body {
     margin-bottom: 2px;
 }
 
-
-
-
 .detail-value {
     display: block;
     font-size: 14px;
     color: var(--text);
 }
 
-
-
-
-/* ── Animation ── */
 @keyframes fadeUp {
     from {
         opacity: 0;
         transform: translateY(10px);
     }
-
-
-
 
     to {
         opacity: 1;
@@ -652,32 +457,19 @@ body {
     }
 }
 
-
-
-
-/* ── Responsive ── */
 @media (max-width: 768px) {
     .litpath-header {
         padding: 16px 20px;
     }
-
-
-
 
     .header-container {
         flex-wrap: wrap;
         gap: 16px;
     }
 
-
-
-
     .logo {
         font-size: 22px;
     }
-
-
-
 
     .search-bar {
         order: 3;
@@ -685,30 +477,18 @@ body {
         max-width: none;
     }
 
-
-
-
     .header-nav {
         gap: 16px;
         margin-left: auto;
     }
 
-
-
-
     .nav-link span {
         display: none;
     }
 
-
-
-
     .author-main {
         padding: 32px 16px 60px;
     }
-
-
-
 
     .author-hero-inner {
         flex-direction: column;
@@ -716,52 +496,31 @@ body {
         gap: 28px;
     }
 
-
-
-
     .author-photo-wrap {
         width: 200px;
         height: 240px;
     }
-
-
-
 
     .author-hero-info {
         padding-top: 0;
         text-align: center;
     }
 
-
-
-
     .author-genres {
         justify-content: center;
     }
-
-
-
 
     .author-actions {
         justify-content: center;
     }
 
-
-
-
     .author-name {
         font-size: 32px;
     }
 
-
-
-
     .details-grid {
         grid-template-columns: 1fr;
     }
-
-
-
 
     .books-grid {
         grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));

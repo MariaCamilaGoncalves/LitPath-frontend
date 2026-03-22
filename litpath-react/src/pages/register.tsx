@@ -5,9 +5,7 @@ import { createUser } from "../utils/api";
 import type { User } from "../utils/api";
 import { Toast, type ToastData } from "../components/toast";
 
-
 const isValidEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
-
 
 interface PasswordRules {
     minLength: boolean;
@@ -17,7 +15,6 @@ interface PasswordRules {
     hasSpecial: boolean;
 }
 
-
 const checkPassword = (v: string): PasswordRules => ({
     minLength: v.length >= 8,
     hasUpper: /[A-Z]/.test(v),
@@ -26,9 +23,7 @@ const checkPassword = (v: string): PasswordRules => ({
     hasSpecial: /[^A-Za-z0-9]/.test(v),
 });
 
-
 const allValid = (r: PasswordRules) => Object.values(r).every(Boolean);
-
 
 function PasswordRule({ ok, label }: { ok: boolean; label: string }) {
     return (
@@ -40,7 +35,6 @@ function PasswordRule({ ok, label }: { ok: boolean; label: string }) {
         </div>
     );
 }
-
 
 const EyeIcon = ({ open }: { open: boolean }) => open ? (
     <svg viewBox="0 0 24 24" width={18} height={18} fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
@@ -55,8 +49,6 @@ const EyeIcon = ({ open }: { open: boolean }) => open ? (
     </svg>
 );
 
-
-// Wrapper para o campo de senha com botão de olho centralizado
 function PasswordInput({
     id,
     placeholder,
@@ -99,10 +91,8 @@ function PasswordInput({
     );
 }
 
-
 export default function Register() {
     const navigate = useNavigate();
-
 
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -113,33 +103,26 @@ export default function Register() {
     const [loading, setLoading] = useState(false);
     const [toast, setToast] = useState<ToastData | null>(null);
 
-
     const [emailTouched, setEmailTouched] = useState(false);
     const [passwordTouched, setPasswordTouched] = useState(false);
     const [confirmTouched, setConfirmTouched] = useState(false);
     const [submitted, setSubmitted] = useState(false);
 
-
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirm, setShowConfirm] = useState(false);
 
-
     const emailValid = isValidEmail(email);
     const emailError = (emailTouched || submitted) && email.length > 0 && !emailValid;
-
 
     const pwRules = checkPassword(password);
     const showPwRules = passwordTouched && password.length > 0;
     const pwValid = allValid(pwRules);
 
-
     const confirmMatch = password === confirmPassword;
     const confirmError = (confirmTouched || submitted) && confirmPassword.length > 0 && !confirmMatch;
 
-
     const showToast = (data: ToastData) => setToast(data);
     const closeToast = () => setToast(null);
-
 
     const inputStyle = (hasError: boolean, isValid?: boolean): React.CSSProperties => ({
         borderColor: hasError ? "#c0392b" : isValid ? "#3b8a55" : undefined,
@@ -147,11 +130,9 @@ export default function Register() {
         transition: "border-color 0.2s, box-shadow 0.2s",
     });
 
-
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setSubmitted(true);
-
 
         if (!emailValid) {
             showToast({ type: "warning", title: "Email inválido", message: "Por favor, insira um email válido." });
@@ -166,9 +147,7 @@ export default function Register() {
             return;
         }
 
-
         const user: User = { firstName, lastName, email, username, password, confirmPassword };
-
 
         try {
             setLoading(true);
@@ -191,11 +170,9 @@ export default function Register() {
         }
     };
 
-
     return (
         <main className="container register-page">
             {toast && <Toast data={toast} onClose={closeToast} />}
-
 
             <div className="logo">
                 <svg
@@ -210,14 +187,11 @@ export default function Register() {
                 <h1>LitPath</h1>
             </div>
 
-
             <p className="subtitle">Crie sua conta gratuita</p>
-
 
             <section className="card">
                 <h2>Cadastrar</h2>
                 <p className="card-subtitle">Preencha os dados abaixo para criar sua conta</p>
-
 
                 <form onSubmit={handleSubmit}>
                     <div className="row">
@@ -232,7 +206,6 @@ export default function Register() {
                                 onChange={(e) => setLastName(e.target.value)} required />
                         </div>
                     </div>
-
 
                     <label htmlFor="email">Email</label>
                     <input
@@ -255,11 +228,9 @@ export default function Register() {
                         </p>
                     )}
 
-
                     <label htmlFor="usuario">Nome de usuário</label>
                     <input id="usuario" type="text" placeholder="@seuusuario" value={username}
                         onChange={(e) => setUsername(e.target.value)} required />
-
 
                     <label htmlFor="senha">Senha</label>
                     <PasswordInput
@@ -273,7 +244,6 @@ export default function Register() {
                         ariaLabel="Mostrar senha"
                     />
 
-
                     {showPwRules && (
                         <div style={{ display: "flex", flexDirection: "column", gap: 4, marginTop: 8, marginBottom: 4, padding: "10px 12px", background: "#faf6f0", borderRadius: 10, border: "1px solid #ede0ce" }}>
                             <PasswordRule ok={pwRules.minLength} label="Mínimo de 8 caracteres" />
@@ -283,7 +253,6 @@ export default function Register() {
                             <PasswordRule ok={pwRules.hasSpecial} label="Pelo menos um caractere especial (!@#...)" />
                         </div>
                     )}
-
 
                     <label htmlFor="confirmar">Confirmar senha</label>
                     <PasswordInput
@@ -302,12 +271,10 @@ export default function Register() {
                         </p>
                     )}
 
-
                     <button type="submit" className="btn-primary" disabled={loading} style={{ marginTop: 16 }}>
                         {loading ? "Criando..." : "Criar Conta"}
                     </button>
                 </form>
-
 
                 <p className="register">
                     Já tem uma conta? <Link to="/">Entrar</Link>

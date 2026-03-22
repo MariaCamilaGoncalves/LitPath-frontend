@@ -3,14 +3,12 @@ import { translateGenre } from "../utils/genreTranslations";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-
 const SearchIcon = () => (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <circle cx="11" cy="11" r="8" />
         <path d="m21 21-4.35-4.35" />
     </svg>
 );
-
 
 const UserCircleIcon = () => (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -20,23 +18,18 @@ const UserCircleIcon = () => (
     </svg>
 );
 
-
 const BookIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"
         fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
         <path d="M2 4h6a4 4 0 0 1 4 4v12a3 3 0 0 0-3-3H2z" />
         <path d="M22 4h-6a4 4 0 0 0-4 4v12a3 3 0 0 1 3-3h7z" />
     </svg>
+
 );
-
-
-// ── Types ──────────────────────────────────────────────────────────────────────
 interface GenreDTO {
     id: number;
     name: string;
 }
-
-
 interface AuthorDTO {
     id: number;
     name: string;
@@ -48,12 +41,9 @@ interface AuthorDTO {
     books: { id: number }[];
 }
 
-
 const shuffle = <T,>(arr: T[]): T[] => [...arr].sort(() => Math.random() - 0.5);
 
-
-const API_URL = "http://localhost:8080";
-
+const API_URL = import.meta.env.VITE_API_URL;
 
 const authFetch = (url: string) =>
     fetch(url, {
@@ -63,18 +53,14 @@ const authFetch = (url: string) =>
         },
     });
 
-
-// ── Page ──────────────────────────────────────────────────────────────────────
 export default function AuthorsPage() {
     const navigate = useNavigate();
-
 
     const [authors, setAuthors] = useState<AuthorDTO[]>([]);
     const [loading, setLoading] = useState(true);
     const [authorSearch, setAuthorSearch] = useState("");
     const [activeGenre, setActiveGenre] = useState("Todos");
     const [allGenres, setAllGenres] = useState<string[]>(["Todos"]);
-
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -83,11 +69,9 @@ export default function AuthorsPage() {
             return;
         }
 
-
         const fetchAuthors = async () => {
             try {
                 const res = await authFetch(`${API_URL}/authors`);
-
 
                 if (res.status === 401 || res.status === 403) {
                     localStorage.removeItem("token");
@@ -95,16 +79,12 @@ export default function AuthorsPage() {
                     return;
                 }
 
-
                 const data: AuthorDTO[] = await res.json();
                 setAuthors(shuffle(data));
 
-
-                // Monta lista de gêneros únicos a partir dos autores
                 const genreSet = new Set<string>();
                 data.forEach(a => a.genres?.forEach(g => genreSet.add(translateGenre(g.name))));
                 setAllGenres(["Todos", ...Array.from(genreSet).sort()]);
-
 
             } catch (err) {
                 console.error("Erro ao buscar autores:", err);
@@ -113,10 +93,8 @@ export default function AuthorsPage() {
             }
         };
 
-
         fetchAuthors();
     }, [navigate]);
-
 
     const filtered = authors.filter(a => {
         const matchSearch = a.name.toLowerCase().includes(authorSearch.toLowerCase());
@@ -124,10 +102,9 @@ export default function AuthorsPage() {
         return matchSearch && matchGenre;
     });
 
-
     return (
         <div className="authors-page">
-            {/* Header */}
+
             <header className="litpath-header">
                 <div className="header-container">
                     <div className="logo" onClick={() => navigate("/home")} style={{ cursor: "pointer" }}>
@@ -149,9 +126,8 @@ export default function AuthorsPage() {
                 </div>
             </header>
 
-
             <main className="authors-main">
-                {/* Hero */}
+
                 <section className="authors-hero">
                     <h1 className="authors-hero-title">Descubra Autores</h1>
                     <p className="authors-hero-subtitle">
@@ -160,8 +136,6 @@ export default function AuthorsPage() {
                     </p>
                 </section>
 
-
-                {/* Search */}
                 <div className="authors-controls">
                     <div className="authors-search-bar">
                         <SearchIcon />
@@ -174,8 +148,6 @@ export default function AuthorsPage() {
                     </div>
                 </div>
 
-
-                {/* Genre Chips — gerados dinamicamente do banco */}
                 <div className="authors-filters">
                     <p className="authors-filters-label">Gêneros</p>
                     <div className="genre-chips">
@@ -191,15 +163,11 @@ export default function AuthorsPage() {
                     </div>
                 </div>
 
-
-                {/* Grid */}
                 {loading && <div className="loading-state"><p>Carregando...</p></div>}
-
 
                 {!loading && filtered.length === 0 && (
                     <div className="empty-state"><p>Nenhum autor encontrado.</p></div>
                 )}
-
 
                 {!loading && filtered.length > 0 && (
                     <div className="authors-grid">
@@ -213,13 +181,10 @@ export default function AuthorsPage() {
     );
 }
 
-
-// ── Author Card ───────────────────────────────────────────────────────────────
 function AuthorCard({ author }: { author: AuthorDTO }) {
     const MAX_GENRES = 2;
     const visible = author.genres?.slice(0, MAX_GENRES) ?? [];
     const extra = (author.genres?.length ?? 0) - MAX_GENRES;
-
 
     return (
         <div className="author-card">
@@ -238,9 +203,7 @@ function AuthorCard({ author }: { author: AuthorDTO }) {
                     </div>
                 )}
 
-
             </div>
-
 
             <div className="author-card-body">
                 <p className="author-card-name-below">{author.name}</p>
@@ -254,14 +217,12 @@ function AuthorCard({ author }: { author: AuthorDTO }) {
                         : "Biografia não disponível."}
                 </p>
 
-
                 <div className="author-card-genres">
                     {visible.map(g => (
                         <span key={g.id} className="genre-tag">{translateGenre(g.name)}</span>
                     ))}
                     {extra > 0 && <span className="genre-tag genre-tag-extra">+{extra}</span>}
                 </div>
-
 
                 <Link to={`/autores/${author.id}`} className="btn-ver-perfil">Ver Perfil</Link>
             </div>

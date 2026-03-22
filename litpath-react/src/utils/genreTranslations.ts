@@ -8,14 +8,12 @@ const genreTranslations: Record<string, string> = {
     "science fiction": "Ficção Científica",
     "literary fiction": "Ficção Literária",
 
-
     // Mistério / Suspense
     "detective and mystery stories": "Mistério e Suspense",
     "detective and mystery stories, brazilian": "Mistério e Suspense Brasileiro",
     "mystery": "Mistério",
     "thriller": "Thriller",
     "crime": "Crime",
-
 
     // Literatura Brasileira / Portuguesa
     "brazilian literature": "Literatura Brasileira",
@@ -26,7 +24,6 @@ const genreTranslations: Record<string, string> = {
     "short stories, american": "Contos Americanos",
     "short stories": "Contos",
 
-
     // Gêneros clássicos
     "drama": "Drama",
     "romance": "Romance",
@@ -35,7 +32,6 @@ const genreTranslations: Record<string, string> = {
     "literary collections": "Coleções Literárias",
     "literary criticism": "Crítica Literária",
     "fairy tales": "Contos de Fadas",
-
 
     // Não-ficção
     "biography & autobiography": "Biografia e Autobiografia",
@@ -57,7 +53,6 @@ const genreTranslations: Record<string, string> = {
     "education": "Educação",
     "humor": "Humor",
 
-
     // Outros
     "authors, american": "Autores Americanos",
     "antiques & collectibles": "Antiguidades e Colecionáveis",
@@ -69,7 +64,6 @@ const genreTranslations: Record<string, string> = {
     "entrevistas": "Entrevistas",
     "alchemists": "Alquimistas",
 };
-
 
 export function translateGenre(genre: string): string {
     const key = genre.toLowerCase().trim();

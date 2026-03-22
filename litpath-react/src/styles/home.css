@@ -291,9 +291,6 @@ body::before {
     color: var(--text-muted);
 }
 
-/* ================================
-   AUTORES — grid fixo 3 colunas
-================================ */
 .authors-grid {
     max-width: 1200px;
     margin: 0 auto;
@@ -398,9 +395,6 @@ body::before {
     color: var(--star-gold);
 }
 
-/* ================================
-   LIVROS — grid 6 colunas
-================================ */
 .books-grid {
     max-width: 1200px;
     margin: 0 auto;

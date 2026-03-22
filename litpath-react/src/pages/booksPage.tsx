@@ -3,15 +3,12 @@ import "../styles/booksPage.css";
 import { translateGenre } from "../utils/genreTranslations";
 import { useState, useEffect } from "react";
 
-
-// ── Icons ──────────────────────────────────────────────────────────────────────
 const SearchIcon = () => (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <circle cx="11" cy="11" r="8" />
         <path d="m21 21-4.35-4.35" />
     </svg>
 );
-
 
 const UserCircleIcon = () => (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -21,7 +18,6 @@ const UserCircleIcon = () => (
     </svg>
 );
 
-
 const BookOpenIcon = () => (
     <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
         <path d="M2 4h6a4 4 0 0 1 4 4v12a3 3 0 0 0-3-3H2z" />
@@ -29,20 +25,16 @@ const BookOpenIcon = () => (
     </svg>
 );
 
-
 const StarFilledIcon = () => (
     <svg width="14" height="14" viewBox="0 0 24 24" fill="#f4a942" stroke="#f4a942" strokeWidth="1">
         <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
     </svg>
 );
 
-
-// ── Types ──────────────────────────────────────────────────────────────────────
 interface GenreDTO {
     id: number;
     name: string;
 }
-
 
 interface BookDTO {
     id: number;
@@ -55,12 +47,9 @@ interface BookDTO {
     genres: GenreDTO[];
 }
 
-
 const shuffle = <T,>(arr: T[]): T[] => [...arr].sort(() => Math.random() - 0.5);
 
-
-const API_URL = "http://localhost:8080";
-
+const API_URL = import.meta.env.VITE_API_URL;
 
 const authFetch = (url: string) =>
     fetch(url, {
@@ -70,18 +59,14 @@ const authFetch = (url: string) =>
         },
     });
 
-
-// ── Page ──────────────────────────────────────────────────────────────────────
 export default function BooksPage() {
     const navigate = useNavigate();
-
 
     const [books, setBooks] = useState<BookDTO[]>([]);
     const [loading, setLoading] = useState(true);
     const [bookSearch, setBookSearch] = useState("");
     const [activeGenre, setActiveGenre] = useState("Todos");
     const [allGenres, setAllGenres] = useState<string[]>(["Todos"]);
-
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -90,11 +75,9 @@ export default function BooksPage() {
             return;
         }
 
-
         const fetchBooks = async () => {
             try {
                 const res = await authFetch(`${API_URL}/books`);
-
 
                 if (res.status === 401 || res.status === 403) {
                     localStorage.removeItem("token");
@@ -102,16 +85,12 @@ export default function BooksPage() {
                     return;
                 }
 
-
                 const data: BookDTO[] = await res.json();
                 setBooks(shuffle(data));
 
-
-                // Monta lista de gêneros únicos a partir dos livros
                 const genreSet = new Set<string>();
                 data.forEach(b => b.genres?.forEach(g => genreSet.add(translateGenre(g.name))));
                 setAllGenres(["Todos", ...Array.from(genreSet).sort()]);
-
 
             } catch (err) {
                 console.error("Erro ao buscar livros:", err);
@@ -120,12 +99,9 @@ export default function BooksPage() {
             }
         };
 
-
         fetchBooks();
     }, [navigate]);
 
-
-    // Busca por título com Enter
     const handleSearch = async (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter" && bookSearch.trim()) {
             try {
@@ -141,17 +117,15 @@ export default function BooksPage() {
         }
     };
 
-
     const filtered = books.filter(b => {
         const matchSearch = b.title.toLowerCase().includes(bookSearch.toLowerCase());
         const matchGenre = activeGenre === "Todos" || b.genres?.some(g => translateGenre(g.name) === activeGenre);
         return matchSearch && matchGenre;
     });
 
-
     return (
         <div className="books-page">
-            {/* Header */}
+
             <header className="litpath-header">
                 <div className="header-container">
                     <div className="logo" onClick={() => navigate("/home")} style={{ cursor: "pointer" }}>
@@ -173,9 +147,8 @@ export default function BooksPage() {
                 </div>
             </header>
 
-
             <main className="books-main">
-                {/* Hero */}
+
                 <section className="books-hero">
                     <h1 className="books-hero-title">Biblioteca de Livros</h1>
                     <p className="books-hero-subtitle">
@@ -184,8 +157,6 @@ export default function BooksPage() {
                     </p>
                 </section>
 
-
-                {/* Search */}
                 <div className="books-controls">
                     <div className="books-search-bar">
                         <SearchIcon />
@@ -199,8 +170,6 @@ export default function BooksPage() {
                     </div>
                 </div>
 
-
-                {/* Genre Chips — gerados dinamicamente do banco */}
                 <div className="books-filters">
                     <p className="books-filters-label">Gêneros</p>
                     <div className="genre-chips">
@@ -216,15 +185,11 @@ export default function BooksPage() {
                     </div>
                 </div>
 
-
-                {/* Grid */}
                 {loading && <div className="empty-state"><p>Carregando...</p></div>}
-
 
                 {!loading && filtered.length === 0 && (
                     <div className="empty-state"><p>Nenhum livro encontrado.</p></div>
                 )}
-
 
                 {!loading && filtered.length > 0 && (
                     <div className="books-grid">
@@ -238,8 +203,6 @@ export default function BooksPage() {
     );
 }
 
-
-// ── Book Card ─────────────────────────────────────────────────────────────────
 function BookCard({ book, onNavigate }: { book: BookDTO; onNavigate: () => void }) {
     return (
         <div className="book-card">
@@ -262,7 +225,6 @@ function BookCard({ book, onNavigate }: { book: BookDTO; onNavigate: () => void 
                     </div>
                 )}
             </div>
-
 
             <div className="book-card-body">
                 <p className="book-card-title">{book.title}</p>

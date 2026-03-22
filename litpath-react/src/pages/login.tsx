@@ -40,8 +40,10 @@ export default function Login() {
             return;
         }
 
+        const API_URL = import.meta.env.VITE_API_URL;
+
         try {
-            const response = await fetch("http://localhost:8080/auth/login", {
+            const response = await fetch(`${API_URL}/auth/login`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, password }),
@@ -55,7 +57,25 @@ export default function Login() {
 
             const data = await response.json();
             localStorage.setItem("token", data.token);
-            navigate("/home");
+
+            const meResponse = await fetch("http://localhost:8080/auth/me", {
+                headers: {
+                    Authorization: `Bearer ${data.token}`,
+                },
+            });
+
+            if (!meResponse.ok) {
+                navigate("/home");
+                return;
+            }
+
+            const meData = await meResponse.json();
+
+            if (meData.firstLogin) {
+                navigate("/preferences");
+            } else {
+                navigate("/home");
+            }
 
         } catch (err) {
             const message = err instanceof Error ? err.message : "Não foi possível conectar ao servidor.";
