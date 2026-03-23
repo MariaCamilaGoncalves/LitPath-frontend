@@ -58,7 +58,7 @@ export default function Login() {
             const data = await response.json();
             localStorage.setItem("token", data.token);
 
-            const meResponse = await fetch("http://localhost:8080/auth/me", {
+            const meResponse = await fetch(`${API_URL}/auth/me`, {
                 headers: {
                     Authorization: `Bearer ${data.token}`,
                 },

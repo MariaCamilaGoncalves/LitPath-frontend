@@ -15,7 +15,8 @@ export default function PrivateRoute({ children }: { children: JSX.Element }) {
             }
 
             try {
-                const res = await fetch("http://localhost:8080/auth/me", {
+                const API_URL = import.meta.env.VITE_API_URL;
+                const res = await fetch(`${API_URL}/auth/me`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
