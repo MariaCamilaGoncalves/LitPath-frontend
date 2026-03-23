@@ -1,5 +1,4 @@
-export const API_URL = import.meta.env.VITE_API_URL;
-
+const API_URL = import.meta.env.VITE_API_URL;
 export interface User {
     firstName: string;
     lastName: string;
@@ -10,7 +9,7 @@ export interface User {
 }
 
 export async function createUser(user: User) {
-    const response = await fetch(API_URL, {
+    const response = await fetch(`${API_URL}/users`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -22,11 +21,9 @@ export async function createUser(user: User) {
             confirmPassword: user.confirmPassword
         }),
     });
-
     if (!response.ok) {
         const error = await response.text();
         throw new Error(error || "Erro ao criar usuário");
     }
-
     return response.json();
 }
