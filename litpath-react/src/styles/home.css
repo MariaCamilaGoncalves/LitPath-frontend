@@ -284,7 +284,6 @@ body::before {
     color: var(--text-muted);
 }
 
-/* ── Authors Grid ── */
 .authors-grid {
     max-width: 1200px;
     margin: 0 auto;
@@ -375,7 +374,6 @@ body::before {
     color: var(--brown-mid);
 }
 
-/* ── Books Grid ── */
 .books-grid {
     max-width: 1200px;
     margin: 0 auto;
@@ -488,7 +486,6 @@ body::before {
     padding: 40px 0;
 }
 
-/* ── CTA ── */
 .cta-section {
     background: var(--brown-dark);
     color: var(--cream);
@@ -529,7 +526,6 @@ body::before {
     opacity: 0.6;
 }
 
-/* ── Responsive ── */
 @media (max-width: 1024px) {
     .authors-grid {
         grid-template-columns: repeat(2, 1fr);
