@@ -131,14 +131,7 @@ export default function Home() {
                         <p className="section-subtitle">Sua próxima leitura favorita está aqui!</p>
                     </div>
                     {loading ? <p className="loading-text">Carregando livros...</p> : (
-                        <div style={{
-                            maxWidth: 1200,
-                            margin: "0 auto",
-                            padding: "0 24px",
-                            display: "grid",
-                            gridTemplateColumns: "repeat(6, minmax(0, 1fr))",
-                            gap: 20,
-                        }}>
+                        <div className="books-grid">
                             {books.map(book => (
                                 <div key={book.id} className="book-card">
                                     <div className="book-cover">
