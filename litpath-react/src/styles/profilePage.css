@@ -880,6 +880,7 @@ body {
     }
 }
 
+/* ── Tablet (≤ 900px) ── */
 @media (max-width: 900px) {
     .stats-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -890,6 +891,7 @@ body {
     }
 }
 
+/* ── Mobile (≤ 768px) ── */
 @media (max-width: 768px) {
     .litpath-header {
         padding: 12px 16px;
@@ -994,6 +996,10 @@ body {
         grid-template-columns: 1fr;
     }
 
+    .community-card {
+        padding: 18px 16px;
+    }
+
     .activity-card,
     .activity-card-full {
         padding: 18px 16px;
@@ -1009,6 +1015,7 @@ body {
     }
 }
 
+/* ── Small mobile (≤ 480px) ── */
 @media (max-width: 480px) {
     .profile-name {
         font-size: 22px;
@@ -1073,6 +1080,9 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 24px;
+    /* evita overflow horizontal em telas pequenas */
+    min-width: 0;
+    width: 100%;
 }
 
 .community-card {
@@ -1081,6 +1091,8 @@ body {
     border-radius: var(--radius-lg);
     padding: 24px 28px;
     box-shadow: 0 4px 16px rgba(59, 43, 36, 0.06);
+    min-width: 0;
+    overflow: hidden;
 }
 
 .community-card h3 {
