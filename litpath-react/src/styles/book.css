@@ -188,6 +188,7 @@ body {
 .book-hero-info {
     flex: 1;
     padding-top: 8px;
+    min-width: 0;
 }
 
 .book-title {
@@ -873,14 +874,24 @@ body {
     }
 }
 
+@media (max-width: 900px) {
+    .reviews-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .details-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 @media (max-width: 768px) {
     .litpath-header {
-        padding: 16px 20px;
+        padding: 12px 16px;
     }
 
     .header-container {
         flex-wrap: wrap;
-        gap: 16px;
+        gap: 12px;
     }
 
     .logo {
@@ -903,13 +914,14 @@ body {
     }
 
     .book-main {
-        padding: 32px 16px 60px;
+        padding: 24px 16px 60px;
     }
 
     .book-hero {
         flex-direction: column;
         align-items: center;
-        gap: 28px;
+        gap: 24px;
+        text-align: center;
     }
 
     .book-cover-wrap {
@@ -918,11 +930,16 @@ body {
 
     .book-hero-info {
         padding-top: 0;
-        text-align: center;
+        width: 100%;
     }
 
     .book-tags {
         justify-content: center;
+    }
+
+    .book-description {
+        max-width: 100%;
+        text-align: left;
     }
 
     .book-actions {
@@ -930,19 +947,65 @@ body {
     }
 
     .book-title {
-        font-size: 30px;
+        font-size: 28px;
     }
 
-    .details-grid {
-        grid-template-columns: 1fr;
+    .tabs-bar {
+        overflow-x: auto;
+        border-radius: var(--radius-sm);
     }
 
-    .reviews-layout {
-        grid-template-columns: 1fr;
+    .tab-btn {
+        font-size: 13px;
+        padding: 12px 10px;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    .synopsis-card,
+    .details-card,
+    .author-card,
+    .rating-summary-card,
+    .review-card {
+        padding: 20px 16px;
     }
 
     .author-card-inner {
         flex-direction: column;
         text-align: center;
+    }
+
+    .modal-box {
+        padding: 24px 18px;
+    }
+
+    .modal-actions {
+        flex-direction: column-reverse;
+        gap: 8px;
+    }
+
+    .modal-actions .btn-secondary,
+    .modal-actions .btn-primary {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .book-title {
+        font-size: 24px;
+    }
+
+    .btn-secondary {
+        font-size: 13px;
+        padding: 9px 14px;
+    }
+
+    .book-actions {
+        gap: 8px;
+    }
+
+    .big-score {
+        font-size: 44px;
     }
 }
