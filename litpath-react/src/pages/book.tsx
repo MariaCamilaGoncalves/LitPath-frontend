@@ -102,6 +102,14 @@ export default function Book() {
 
     const formatDate = (s: string) => { try { return new Date(s).toLocaleDateString("pt-BR"); } catch { return ""; } };
 
+    const navigateToProfile = (userId: number) => {
+        if (loggedUserId !== null && userId === loggedUserId) {
+            navigate("/perfil");
+        } else {
+            navigate(`/usuarios/${userId}`);
+        }
+    };
+
     return (
         <div className="book-page">
             <header className="litpath-header">
@@ -193,10 +201,9 @@ export default function Book() {
                                                     <div key={review.id} className="review-card">
                                                         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 6 }}>
                                                             <div>
-
                                                                 <span
                                                                     style={{ fontWeight: 600, fontSize: 14, cursor: "pointer", color: "var(--brown-mid)" }}
-                                                                    onClick={() => navigate(`/usuarios/${review.userId}`)}>
+                                                                    onClick={() => navigateToProfile(review.userId)}>
                                                                     @{review.username}
                                                                 </span>
                                                                 <span style={{ color: "var(--text-muted)", fontSize: 12, marginLeft: 8 }}>{formatDate(review.createdAt)}</span>
@@ -251,10 +258,9 @@ export default function Book() {
                                                                         <div key={c.id} style={{ marginBottom: 10 }}>
                                                                             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                                                                                 <div>
-
                                                                                     <span
                                                                                         style={{ fontWeight: 700, fontSize: 12, color: "var(--brown-mid)", cursor: "pointer" }}
-                                                                                        onClick={() => navigate(`/usuarios/${c.userId}`)}>
+                                                                                        onClick={() => navigateToProfile(c.userId)}>
                                                                                         @{c.username}
                                                                                     </span>
                                                                                     <span style={{ color: "var(--text-muted)", fontSize: 11, marginLeft: 6 }}>{formatDate(c.createdAt)}</span>
