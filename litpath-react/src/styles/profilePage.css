@@ -934,6 +934,11 @@ body {
         justify-content: center;
     }
 
+    .settings-dropdown {
+        left: auto;
+        right: 0;
+    }
+
     .profile-name {
         font-size: 26px;
     }
