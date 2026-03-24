@@ -294,7 +294,7 @@ body::before {
 .authors-grid {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 24px;
+    padding: 0 40px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 32px;
@@ -398,8 +398,9 @@ body::before {
 .books-grid-wrapper {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 24px;
+    padding: 0 40px;
     box-sizing: border-box;
+    width: 100%;
 }
 
 .books-grid {
