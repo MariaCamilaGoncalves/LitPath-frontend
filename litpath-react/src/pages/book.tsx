@@ -196,7 +196,7 @@ export default function Book() {
 
                                                                 <span
                                                                     style={{ fontWeight: 600, fontSize: 14, cursor: "pointer", color: "var(--brown-mid)" }}
-                                                                    onClick={() => navigate(review.userId === loggedUserId ? "/perfil" : `/usuarios/${review.userId}`)}>
+                                                                    onClick={() => navigate(`/usuarios/${review.userId}`)}>
                                                                     @{review.username}
                                                                 </span>
                                                                 <span style={{ color: "var(--text-muted)", fontSize: 12, marginLeft: 8 }}>{formatDate(review.createdAt)}</span>
@@ -254,7 +254,7 @@ export default function Book() {
 
                                                                                     <span
                                                                                         style={{ fontWeight: 700, fontSize: 12, color: "var(--brown-mid)", cursor: "pointer" }}
-                                                                                        onClick={() => navigate(c.userId === loggedUserId ? "/perfil" : `/usuarios/${c.userId}`)}>
+                                                                                        onClick={() => navigate(`/usuarios/${c.userId}`)}>
                                                                                         @{c.username}
                                                                                     </span>
                                                                                     <span style={{ color: "var(--text-muted)", fontSize: 11, marginLeft: 6 }}>{formatDate(c.createdAt)}</span>
