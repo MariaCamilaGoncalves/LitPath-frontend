@@ -305,7 +305,7 @@ export default function ProfilePage() {
                     </div>
                     <div className="search-bar" onClick={() => navigate("/pesquisa")} style={{ cursor: "pointer" }}>
                         <SearchIcon />
-                        <input type="text" placeholder="Pesquisar autores, livros..." readOnly style={{ cursor: "pointer" }} />
+                        <input type="text" placeholder="Pesquisar autores, livros, leitores..." readOnly style={{ cursor: "pointer" }} />
                     </div>
                     <nav className="header-nav">
                         <a href="/autores" className="nav-link">Autores</a>

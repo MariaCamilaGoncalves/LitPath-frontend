@@ -403,7 +403,6 @@ body::before {
     gap: 16px;
 }
 
-/* ── wrapper para o grid inline do TSX ── */
 .popular-books-wrapper {
     max-width: 1200px;
     margin: 0 auto;
@@ -563,14 +562,12 @@ body::before {
     opacity: 0.6;
 }
 
-/* ── Large tablet (≤ 1024px) ── */
 @media (max-width: 1024px) {
     .authors-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
-/* ── Tablet (≤ 768px) — header idêntico ao original ── */
 @media (max-width: 768px) {
     .header-container {
         flex-wrap: wrap;
@@ -633,7 +630,6 @@ body::before {
     }
 }
 
-/* ── Mobile (≤ 480px) — só livros ── */
 @media (max-width: 480px) {
     .book-info h3 {
         overflow: hidden;
