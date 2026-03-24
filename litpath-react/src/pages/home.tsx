@@ -131,23 +131,25 @@ export default function Home() {
                         <p className="section-subtitle">Sua próxima leitura favorita está aqui!</p>
                     </div>
                     {loading ? <p className="loading-text">Carregando livros...</p> : (
-                        <div className="books-grid">
-                            {books.map(book => (
-                                <div key={book.id} className="book-card">
-                                    <div className="book-cover">
-                                        {book.coverUrl
-                                            ? <img src={book.coverUrl} alt={book.title} onError={e => { (e.target as HTMLImageElement).style.display = "none"; }} />
-                                            : <div className="cover-placeholder"><BookIcon /></div>}
-                                    </div>
-                                    <div className="book-info">
-                                        <h3>{book.title}</h3>
-                                        <p className="book-author">por {book.authorName}</p>
-                                        <div className="book-footer">
-                                            <button className="btn-details" onClick={() => navigate(`/livros/${book.id}`)}>Ver Detalhes</button>
+                        <div className="books-grid-wrapper">
+                            <div className="books-grid">
+                                {books.map(book => (
+                                    <div key={book.id} className="book-card">
+                                        <div className="book-cover">
+                                            {book.coverUrl
+                                                ? <img src={book.coverUrl} alt={book.title} onError={e => { (e.target as HTMLImageElement).style.display = "none"; }} />
+                                                : <div className="cover-placeholder"><BookIcon /></div>}
+                                        </div>
+                                        <div className="book-info">
+                                            <h3>{book.title}</h3>
+                                            <p className="book-author">por {book.authorName}</p>
+                                            <div className="book-footer">
+                                                <button className="btn-details" onClick={() => navigate(`/livros/${book.id}`)}>Ver Detalhes</button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            ))}
+                                ))}
+                            </div>
                         </div>
                     )}
                 </section>

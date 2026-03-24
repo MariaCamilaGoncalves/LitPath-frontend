@@ -395,20 +395,17 @@ body::before {
     color: var(--star-gold);
 }
 
-.books-grid {
-    width: min(1200px, 100%);
+.books-grid-wrapper {
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 24px;
-    display: grid;
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    gap: 16px;
     box-sizing: border-box;
 }
 
-/* ── wrapper para o grid inline do TSX ── */
-.popular-books-wrapper {
-    max-width: 1200px;
-    margin: 0 auto;
+.books-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 16px;
 }
 
 .book-card {
@@ -565,14 +562,12 @@ body::before {
     opacity: 0.6;
 }
 
-/* ── Large tablet (≤ 1024px) ── */
 @media (max-width: 1024px) {
     .authors-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
-/* ── Tablet (≤ 768px) — header idêntico ao original ── */
 @media (max-width: 768px) {
     .header-container {
         flex-wrap: wrap;
@@ -620,10 +615,18 @@ body::before {
         font-size: 32px;
     }
 
-    .authors-grid,
-    .books-grid {
+    .authors-grid {
         grid-template-columns: repeat(2, 1fr);
         padding: 0 20px;
+    }
+
+    .books-grid-wrapper {
+        padding: 0 16px;
+    }
+
+    .books-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
     }
 
     .cta-section {
@@ -635,8 +638,12 @@ body::before {
     }
 }
 
-/* ── Mobile (≤ 480px) — só livros ── */
 @media (max-width: 480px) {
+    .books-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
     .book-info h3 {
         overflow: hidden;
         display: -webkit-box;
