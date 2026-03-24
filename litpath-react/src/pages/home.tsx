@@ -35,10 +35,10 @@ export default function Home() {
                 const booksData: BookDTO[] = await booksRes.json();
                 setAuthors(shuffle(authorsData).slice(0, 6));
                 const booksWithCover = booksData.filter(b => b.coverUrl);
-                const chosen = shuffle(booksWithCover).slice(0, 12);
+                const chosen = shuffle(booksWithCover).slice(0, 14);
                 if (chosen.length < 12) {
                     const withoutCover = booksData.filter(b => !b.coverUrl);
-                    const extra = shuffle(withoutCover).slice(0, 12 - chosen.length);
+                    const extra = shuffle(withoutCover).slice(0, 14 - chosen.length);
                     setBooks([...chosen, ...extra]);
                 } else {
                     setBooks(chosen);
