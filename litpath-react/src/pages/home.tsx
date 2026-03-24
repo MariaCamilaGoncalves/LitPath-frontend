@@ -35,10 +35,10 @@ export default function Home() {
                 const booksData: BookDTO[] = await booksRes.json();
                 setAuthors(shuffle(authorsData).slice(0, 6));
                 const booksWithCover = booksData.filter(b => b.coverUrl);
-                const chosen = shuffle(booksWithCover).slice(0, 14);
+                const chosen = shuffle(booksWithCover).slice(0, 12);
                 if (chosen.length < 12) {
                     const withoutCover = booksData.filter(b => !b.coverUrl);
-                    const extra = shuffle(withoutCover).slice(0, 14 - chosen.length);
+                    const extra = shuffle(withoutCover).slice(0, 12 - chosen.length);
                     setBooks([...chosen, ...extra]);
                 } else {
                     setBooks(chosen);
@@ -133,7 +133,25 @@ export default function Home() {
                     {loading ? <p className="loading-text">Carregando livros...</p> : (
                         <div className="books-grid-wrapper">
                             <div className="books-grid">
-                                {books.map(book => (
+                                {books.slice(0, 6).map(book => (
+                                    <div key={book.id} className="book-card">
+                                        <div className="book-cover">
+                                            {book.coverUrl
+                                                ? <img src={book.coverUrl} alt={book.title} onError={e => { (e.target as HTMLImageElement).style.display = "none"; }} />
+                                                : <div className="cover-placeholder"><BookIcon /></div>}
+                                        </div>
+                                        <div className="book-info">
+                                            <h3>{book.title}</h3>
+                                            <p className="book-author">por {book.authorName}</p>
+                                            <div className="book-footer">
+                                                <button className="btn-details" onClick={() => navigate(`/livros/${book.id}`)}>Ver Detalhes</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="books-grid" style={{ marginTop: 16 }}>
+                                {books.slice(6, 12).map(book => (
                                     <div key={book.id} className="book-card">
                                         <div className="book-cover">
                                             {book.coverUrl
